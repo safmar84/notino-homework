@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 import TodoRow from './TodoRow'
 import { getTodos } from '../services/todosApi'
+import { Todo } from '../config/types'
 
-const TodosList = () => {
-    const [todos, setTodos] = useState<{ id: string; title: string }[]>([])
+const TodosList = (): JSX.Element => {
+    const [todos, setTodos] = useState<Todo[]>([])
     
     useEffect(() => {
         (async () => {
             let awaitedTodos = await getTodos()
-            console.log("Awaited Data: ", awaitedTodos)
             setTodos(awaitedTodos)
         })()
     }, [])
@@ -16,7 +16,7 @@ const TodosList = () => {
     return (
         <>
             {todos.map((todo) => (
-                <TodoRow todo={todo} />
+                <TodoRow key={todo.id} todo={todo} />
             ))}
         </>
        

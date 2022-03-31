@@ -1,16 +1,15 @@
 import { memo } from 'react'
+import { Todo } from '../config/types'
 
-const TodoRow = (props: any) => {
+const TodoRow = ({ todo }: { todo: Todo}): JSX.Element => {
 
-	const handleOnClick = () => {
-		window.location.href = '/detail'
+	const handleOnClick = (): void => {
+		window.location.href = `/detail/${todo?.id}`
 	}
 
 	return (
-		<div>
-			<div onClick={handleOnClick}>
-				{props.todo.title}
-			</div>
+		<div onClick={handleOnClick}>
+			{todo?.title}
 		</div>
 	)
 }
