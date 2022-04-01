@@ -2,6 +2,7 @@
 export type Todo = {
     id: number
     title: string
+    description: string
 }
 
 // type for useParams custom hook return value from react-router

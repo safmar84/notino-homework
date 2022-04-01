@@ -23,3 +23,8 @@ It will start mock server on localhost:3001
 
 ## Prepare production build
 `yarn build`
+
+// TODO Storybook with states (done, loading, error)
+// TODO Jest
+// TODO Separsate dummy and smart components 
+// TODO AppBar separate component
