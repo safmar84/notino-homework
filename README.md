@@ -1,6 +1,7 @@
 # Homework for Notino
 ## Original task
 Here is sample code that is not by far ideal.
+(https://gist.github.com/remunda/485e76c63c638b765a399810222c3415)
 
 1. Refactor code to production-grade quality.
 2. Find and describe bugs and issues.
@@ -24,7 +25,8 @@ It will start mock server on localhost:3001
 ## Prepare production build
 `yarn build`
 
-// TODO Storybook with states (done, loading, error)
-// TODO Jest
-// TODO Separsate dummy and smart components 
-// TODO AppBar separate component
+[//]: <> (TODO Storybook with states (done, loading, error))
+[//]: <> (TODO Jest - unit tests)
+[//]: <> (TODO Separate dummy and smart components )
+[//]: <> (TODO AppBar separate component)
+[//]: <> (TODO Create, edit, delete)

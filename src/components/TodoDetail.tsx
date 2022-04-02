@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+// Comments:
+// - New component for TODO detail
+// - Added basic styling with MUI
+// - Fetched TODO get from Context API with useContext hook and useParams from React Router
+// - Added routing back on TODOs list with useNavigate from React Router
+
+import { useContext } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
 import AppBar from '@mui/material/AppBar'
@@ -13,30 +19,16 @@ import TextSnippetIcon from '@mui/icons-material/TextSnippet'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 
-import { getTodo } from '../services/todosApi'
-import { Todo, UrlId } from '../config/types'
+import { TodosContext } from '../App'
+import { Todo } from '../types/types'
 
 
 const TodoDetail = (): JSX.Element => {
-    const [todo, setTodo] = useState<Todo>()
-    const urlId: UrlId = useParams().id
-    const isCanceled = useRef(false)
     const navigate = useNavigate()
 
-    const callbackWithUnmountCheck = useCallback(
-        (todo: Todo) => {
-            if (isCanceled.current === false) {
-                setTodo(todo)
-            }
-        }, [setTodo, isCanceled]
-    )
-
-    useEffect(() => {
-        getTodo(urlId, callbackWithUnmountCheck)
-        return () => {
-            isCanceled.current = true
-        }
-    }, [urlId, callbackWithUnmountCheck])
+    const { id } = useParams<{ id: string }>()
+    const todos: Todo[] | null = useContext(TodosContext)
+    const todo: Todo | null | undefined = todos && todos.find(todo => String(todo.id) === id)
     
     return (
         <>

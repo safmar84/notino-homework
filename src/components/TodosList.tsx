@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+// Comments:
+// - Original component <Todo> split into two <TodosList> and <TodoRow>
+// - Fetched TODOs get from Context API with useContext hook
+// - Added basic styling with MUI
+// - Added key property for <TodoRow> components rendering
+
+import { useContext  } from 'react'
 
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -8,29 +14,11 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 
 import TodoRow from './TodoRow'
-import { getTodos } from '../services/todosApi'
-import { Todo } from '../config/types'
-
+import { TodosContext } from '../App'
 
 const TodosList = (): JSX.Element => {
-    const [todos, setTodos] = useState<Todo[]>([])
-    const isCanceled = useRef(false)
+    const todos = useContext(TodosContext)
 
-    const callbackWithUnmountCheck = useCallback(
-        (todos: Array<Todo>) => {
-            if (isCanceled.current === false) {
-                setTodos(todos)
-            }
-        }, [setTodos, isCanceled]
-    )
-
-    useEffect(() => {
-        getTodos(callbackWithUnmountCheck)
-        return () => {
-            isCanceled.current = true
-        }
-    }, [callbackWithUnmountCheck])
-    
     return (
         <>
             <Box sx={{ flexGrow: 1 }}>
@@ -44,7 +32,7 @@ const TodosList = (): JSX.Element => {
                 </AppBar>
             </Box>
             <List>
-                {todos.map((todo) => (
+                {todos?.map((todo) => (
                     <TodoRow key={todo.id} todo={todo} />
                 ))}
             </List>
@@ -53,3 +41,32 @@ const TodosList = (): JSX.Element => {
 }
 
 export default TodosList
+
+// Original content Todo.tsx from task assignment (https://gist.github.com/remunda/485e76c63c638b765a399810222c3415)
+/* import React from "react";
+
+class Todo extends React.Component<any> {
+	shouldComponentUpdate(prevProps: any) {
+	if(this.props != prevProps) {
+		return true;
+	}
+		return false;
+	}
+
+	handleOnClick() {
+		window.location.href = '/detail'
+	}
+
+	render() {
+
+	return (
+		<div>
+			<div onClick={this.handleOnClick}>
+			{this.props.todo.title}
+			</div>
+		</div>
+	);
+	}
+}
+
+export default Todo; */
