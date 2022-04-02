@@ -1,4 +1,4 @@
-import { Todo } from '../config/types'
+import { Todo } from '../types/types'
 
 export const getTodos = async (callback: (todos: Array<Todo>) => void) => {
   try { 
@@ -7,15 +7,5 @@ export const getTodos = async (callback: (todos: Array<Todo>) => void) => {
     callback(awaitedTodos)
   } catch (error) {
       console.log('Fetching of TODOs failed. ', error)
-  }
-}
-
-export const getTodo = async (id: (string | undefined), callback: (todo: Todo) => void) => {
-  try {
-    const data = await fetch(`http://localhost:3001/todos?id=${id}`)
-    const [awaitedTodo] = await data.json()
-    callback(awaitedTodo)
-  } catch (error) {
-      console.log(`Fetching of TODO number ${id} failed. `, error)
   }
 }
